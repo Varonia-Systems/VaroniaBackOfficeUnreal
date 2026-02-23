@@ -142,13 +142,13 @@ bool UVaroniaBackOfficeManager::LoadLBEConfig()
             const UEnum* HandEnum = StaticEnum<EMainHand>();
 
             UE_LOG(LogVaronia, Log, TEXT("Config loaded successfully"));
-            UE_LOG(LogVaronia, Verbose, TEXT("  PlayerName: %s"), *CurrentConfig.PlayerName);
-            UE_LOG(LogVaronia, Verbose, TEXT("  ServerIP: %s"), *CurrentConfig.ServerIP);
-            UE_LOG(LogVaronia, Verbose, TEXT("  MQTT_ServerIP: %s"), *CurrentConfig.MQTT_ServerIP);
-            UE_LOG(LogVaronia, Verbose, TEXT("  MQTT_IDClient: %d"), CurrentConfig.MQTT_IDClient);
-            UE_LOG(LogVaronia, Verbose, TEXT("  DeviceMode: %s"), *ModeEnum->GetNameStringByValue((int64)CurrentConfig.DeviceMode));
-            UE_LOG(LogVaronia, Verbose, TEXT("  MainHand: %s"), *HandEnum->GetNameStringByValue((int64)CurrentConfig.MainHand));
-            UE_LOG(LogVaronia, Verbose, TEXT("  Language: %s"), *CurrentConfig.Language);
+            UE_LOG(LogVaronia, Log, TEXT("  PlayerName: %s"), *CurrentConfig.PlayerName);
+            UE_LOG(LogVaronia, Log, TEXT("  ServerIP: %s"), *CurrentConfig.ServerIP);
+            UE_LOG(LogVaronia, Log, TEXT("  MQTT_ServerIP: %s"), *CurrentConfig.MQTT_ServerIP);
+            UE_LOG(LogVaronia, Log, TEXT("  MQTT_IDClient: %d"), CurrentConfig.MQTT_IDClient);
+            UE_LOG(LogVaronia, Log, TEXT("  DeviceMode: %s"), *ModeEnum->GetNameStringByValue((int64)CurrentConfig.DeviceMode));
+            UE_LOG(LogVaronia, Log, TEXT("  MainHand: %s"), *HandEnum->GetNameStringByValue((int64)CurrentConfig.MainHand));
+            UE_LOG(LogVaronia, Log, TEXT("  Language: %s"), *CurrentConfig.Language);
 
             return true;
         }
@@ -169,12 +169,12 @@ bool UVaroniaBackOfficeManager::LoadLBEConfig()
     JsonObject->SetStringField(TEXT("MQTT_ServerIP"), CurrentConfig.MQTT_ServerIP);
     JsonObject->SetNumberField(TEXT("MQTT_IDClient"), (double)CurrentConfig.MQTT_IDClient);
 
-    const UEnum* ModeEnum = StaticEnum<EDeviceMode>();
-    JsonObject->SetStringField(TEXT("DeviceMode"), ModeEnum->GetNameStringByValue((int64)CurrentConfig.DeviceMode));
+    
+    JsonObject->SetNumberField(TEXT("DeviceMode"), (int32)CurrentConfig.DeviceMode);
     JsonObject->SetStringField(TEXT("Language"), CurrentConfig.Language);
 
-    const UEnum* HandEnum = StaticEnum<EMainHand>();
-    JsonObject->SetStringField(TEXT("MainHand"), HandEnum->GetNameStringByValue((int64)CurrentConfig.MainHand));
+ 
+    JsonObject->SetNumberField(TEXT("MainHand"), (int32)CurrentConfig.MainHand);
     JsonObject->SetStringField(TEXT("PlayerName"), CurrentConfig.PlayerName);
 
     FString OutputString;
